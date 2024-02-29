@@ -26,14 +26,6 @@ const getBoookingDetailsFromDB = async (req, res) => {
   try {
     const latestBooking = await BookingModel.findOne().sort({ createdAt: -1 });
 
-    if (!latestBooking) {
-      return res.status(404).json({
-        message: "No Previous Booking Found",
-        status: 404,
-        data: {},
-      });
-    }
-
     return res.status(200).json({
       message: "Booking Found",
       status: 200,
