@@ -28,9 +28,14 @@ const storeBookingInDB = async (req, res) => {
     logger.info("Received booking request:", { movie, slot, seats });
 
     // Save booking data to database
-
     const bookingData = new BookingModel({ movie, slot, seats });
     const data = await bookingData.save();
+
+    // Save booking data to cookie
+    res.cookie("bookingdata", JSON.stringify({ movie, slot, seats }), {
+      httpOnly: true,
+      secure: true,
+    });
 
     return res.status(200).json({
       message: "Booking Successful ",
@@ -49,6 +54,18 @@ const storeBookingInDB = async (req, res) => {
 
 const getBoookingDetailsFromDB = async (req, res) => {
   try {
+    // const bookingdata = req.cookies.bookingdata;
+    // console.log("Booking Data: " + bookingdata, req.cookies);
+    // if (!bookingdata) {
+    //   return res.status(404).json({
+    //     message: "No booking found",
+    //     status: 404,
+    //     data: {},
+    //   });
+    // }
+    // Parse booking data from cookie
+    // const { movie, slot, seats } = JSON.parse(bookingdata);
+
     const latestBooking = await BookingModel.findOne().sort({ createdAt: -1 });
 
     return res.status(200).json({
