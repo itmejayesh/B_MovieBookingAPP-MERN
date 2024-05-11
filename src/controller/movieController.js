@@ -24,7 +24,7 @@ const storeBookingInDB = async (req, res) => {
       });
     }
 
-    const { movie, slot, seats } = req.body;
+    const { movie, slot, seats } = value;
     logger.info("Received booking request:", { movie, slot, seats });
 
     // Save booking data to database
