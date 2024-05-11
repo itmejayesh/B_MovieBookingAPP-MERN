@@ -18,5 +18,5 @@ const port = process.env.PORT || 8001;
 app.use("/api/v1", bookingRoutes);
 
 app.listen(port, () => {
-  console.log("server is running");
+  console.log("server is running", port);
 });
